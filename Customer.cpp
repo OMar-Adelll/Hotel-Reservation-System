@@ -41,7 +41,4 @@ class Customer : public Person
             }
 
 };
-int main()
-{
-
-}
+vector<Customer> customers;
