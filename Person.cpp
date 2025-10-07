@@ -20,7 +20,9 @@ protected:
     string Phone;
 
     /*--system information--*/
-    string System_ID; // Unique identifier assigned by the hotel system for internal tracking
+    
+    static int nextId;
+    int System_ID;  // Unique identifier assigned by the hotel system for internal tracking
     string Password;
 
 public:
@@ -36,12 +38,12 @@ public:
         this->Email = "Null";
         this->Phone = "Null";
 
-        this->System_ID = "Null";
+        this->System_ID = ++nextId;
         this->Password = "Null";
     }
 
     Person(string National_ID, string Name, string Gender, int Age, string Nationality,
-           string Address, string Email, string Phone, string System_ID, string Password) // Parametrize constructor
+           string Address, string Email, string Phone, int System_ID, string Password) // Parametrize constructor
     {
         this->National_ID = National_ID;
         this->Name = Name;
@@ -140,11 +142,7 @@ public:
     }
 
     // 9- System ID
-    void set_System_ID(string Set_System_ID)
-    {
-        this->System_ID = Set_System_ID;
-    }
-    string get_System_ID()
+    int get_System_ID()
     {
         return this->System_ID;
     }
