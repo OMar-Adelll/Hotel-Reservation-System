@@ -38,7 +38,7 @@ public:
         this->Email = "Null";
         this->Phone = "Null";
 
-        this->System_ID = ++nextId;
+        set_System_ID();
         this->Password = "Null";
     }
 
@@ -142,6 +142,10 @@ public:
     }
 
     // 9- System ID
+    void set_System_ID()
+    {
+        this->System_ID = ++nextId;
+    }
     int get_System_ID()
     {
         return this->System_ID;
