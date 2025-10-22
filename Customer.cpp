@@ -41,4 +41,4 @@ class Customer : public Person
             }
 
 };
-vector<Customer> customers;
+vector<Customer> all_customers;
