@@ -14,7 +14,7 @@ public:
         string name;
         getline(cin, name);
 
-        cout << "Enter Passsword: ";
+        cout << "Enter Password: ";
         string password;
         getline(cin, password);
 
@@ -167,7 +167,6 @@ void admins_in_the_system()
         getline(ss, address, ',');
         ad.set_System_ID();
         ad.set_Name(name);
-
         ad.set_Password(password);
         ad.set_Gender(gender);
         ad.set_Age(stoi(age));
