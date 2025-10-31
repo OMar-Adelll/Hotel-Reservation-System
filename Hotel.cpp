@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include "Person.cpp"
 #include <Customer.cpp>
+#include "Room.cpp"
 #define sp " "
 #define nl '\n'
 using namespace std;
@@ -17,6 +18,7 @@ private:
     string phone;
     string address;
     string description;
+    map<int, Room> rooms;
 
 public:
     Hotel()
@@ -53,6 +55,22 @@ public:
     string get_phone() { return this->phone; }
     string get_address() { return this->address; }
     string get_description() { return this->description; }
+
+    //--- rooms ---//
+    void addRoom(Room r)
+    {
+        int RoomNumber = r.get_hotelID();
+        if (rooms.find(RoomNumber) != rooms.end())
+        {
+            cout << "This room already exists in the hotel!" << nl;
+            return;
+        }
+        rooms[RoomNumber] = r;
+        r.set_hotelID(this->hotelId);
+        this->roomsCount++;
+
+        cout << "Room #" << RoomNumber << " added successfully." << nl;
+    }
 
     void display()
     {
