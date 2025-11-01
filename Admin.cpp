@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
-#include "Person.cpp"
-#include <Customer.cpp>
+#include "Person.h"
+#include "Customer.h"
 #define sp " "
 using namespace std;
 
