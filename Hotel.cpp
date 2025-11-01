@@ -59,7 +59,7 @@ public:
     //--- rooms ---//
     void addRoom(Room r)
     {
-        int RoomNumber = r.get_hotelID();
+        int RoomNumber = r.get_roomNumber();
         if (rooms.find(RoomNumber) != rooms.end())
         {
             cout << "This room already exists in the hotel!" << nl;
