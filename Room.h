@@ -171,7 +171,7 @@ public:
         cout << string(40, '-') << nl;
     }
 
-private:
+    
     string getRoomTypeString() const // to see type as a string
     {
         switch (roomType)
@@ -208,3 +208,4 @@ private:
         }
     }
 };
+vector<Room> all_rooms; // Global vector to store all rooms

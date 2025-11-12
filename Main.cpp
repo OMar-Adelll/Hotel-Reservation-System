@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "Admin.cpp"
+#include "Admin.h"
 #include "Safe_Input.cpp"
 #include "Customer.h"
 #include "Person.h"

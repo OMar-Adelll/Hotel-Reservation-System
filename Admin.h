@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
 #include "Person.h"
 #include "Customer.h"
-#define sp " "
+#include "Room.h"
+#include "Date.cpp"
+#include "Safe_Input.cpp"
 using namespace std;
 
 class admin : public Person
@@ -128,15 +130,142 @@ public:
         return true;
     }
 
-    // void search_customer(){}
+    void search_customer()
+    {
+        cout << "Enter Customer System ID to search: ";
+        string search_id;
+        getline(cin, search_id);
 
-    // void show_all_customers(){}
+        bool found = false;
+        for (auto &customer : all_customers)
+        {
+            if (customer.get_System_ID() == stoi(search_id))
+            {
+                cout << "\nCustomer data:\n";
+                cout << "Name: " << customer.get_Name() << endl;
+                cout << "Password: " << customer.get_Password() << endl;
+                cout << "National ID: " << customer.get_National_ID() << endl;
+                cout << "Gender: " << customer.get_Gender() << endl;
+                cout << "Age: " << customer.get_Age() << endl;
+                cout << "Email: " << customer.get_Email() << endl;
+                cout << "Phone: " << customer.get_Phone() << endl;
+                cout << "Address: " << customer.get_Address() << endl;
+                cout << "System ID: " << customer.get_System_ID() << "\n\n";
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            cout << "Customer with System ID \"" << search_id << "\" not found.\n\n";
+        }
+    }
 
-    // void all_available_rooms(){}
+    void show_all_customers()
+    {
+        cout << "All Customers in the System:\n";
+        cout << string(80, '-') << endl;
+        cout << left << setw(15) << "Name"
+             << setw(15) << "Password"
+             << setw(15) << "National ID"
+             << setw(10) << "Gender"
+             << setw(5) << "Age"
+             << setw(20) << "Email"
+             << setw(15) << "Phone"
+             << setw(25) << "Address"
+             << setw(10) << "System ID" << endl;
+        cout << string(80, '-') << endl;
+        for (auto &customer : all_customers)
+        {
+            cout << left << setw(15) << customer.get_Name()
+                 << setw(15) << customer.get_Password()
+                 << setw(15) << customer.get_National_ID()
+                 << setw(10) << customer.get_Gender()
+                 << setw(5) << customer.get_Age()
+                 << setw(20) << customer.get_Email()
+                 << setw(15) << customer.get_Phone()
+                 << setw(25) << customer.get_Address()
+                 << setw(10) << customer.get_System_ID() << endl;
+        }
+        cout << string(80, '-') << "\n\n";
+    }
 
-    // void all_reserved_rooms(){}
+    void all_available_rooms()
+    {
+        cout << "Available Rooms in the System:\n";
+        cout << string(80, '-') << endl;
+        cout << left << setw(10) << "Room No."
+             << setw(10) << "Price"
+             << setw(10) << "Floor"
+             << setw(10) << "Beds"
+             << setw(15) << "Hotel ID"
+             << setw(15) << "Type"
+             << setw(15) << "Status" << endl;
+        cout << string(80, '-') << endl;
+        for (auto &room : all_rooms)
+        {
+            if (room.get_roomStatus() == RoomStatus::Available)
+            {
+                cout << left << setw(10) << room.get_roomNumber()
+                     << setw(10) << room.get_roomPrice()
+                     << setw(10) << room.get_roomFloor()
+                     << setw(10) << room.get_roomBeds()
+                     << setw(15) << room.get_hotelID()
+                     << setw(15) << room.getRoomTypeString()
+                     << setw(15) << room.getRoomStatusString() << endl;
+            }
+        }
+        cout << string(80, '-') << "\n\n";
+    }
 
-    // void show_hotel_data(){}
+    void all_reserved_rooms()
+    {
+        cout << "Reserved Rooms in the System:\n";
+        cout << string(80, '-') << endl;
+        cout << left << setw(10) << "Room No."
+             << setw(10) << "Price"
+             << setw(10) << "Floor"
+             << setw(10) << "Beds"
+             << setw(15) << "Hotel ID"
+             << setw(15) << "Type"
+             << setw(15) << "Status"
+             << setw(15) << "Check-in"
+             << setw(15) << "Check-out" << endl;
+        cout << string(80, '-') << endl;
+        for (auto &room : all_rooms)
+        {
+            if (room.get_roomStatus() == RoomStatus::Booked)
+            {
+                cout << left << setw(10) << room.get_roomNumber()
+                     << setw(10) << room.get_roomPrice()
+                     << setw(10) << room.get_roomFloor()
+                     << setw(10) << room.get_roomBeds()
+                     << setw(15) << room.get_hotelID()
+                     << setw(15) << room.getRoomTypeString()
+                     << setw(15) << room.getRoomStatusString();
+                // Maybe the foramat of date should be changed to fit in the table
+                room.get_checkIn().display();
+                room.get_checkOut().display();
+            }
+        }
+        cout << string(80, '-') << "\n\n";
+    }
+
+    // void show_hotel_data()
+    // {
+    //     cout << "Hotel Data:\n\n";
+    //     cout << string(30, '-') << endl;
+    //     cout << left << setw(20) << "Hotel Name"
+    //          << setw(10) << "Hotel ID"
+    //          << setw(10) << "Stars"
+    //          << setw(15) << "Rooms Count"
+    //          << setw(15) << "Customers Count"
+    //          << setw(25) << "Email"
+    //          << setw(15) << "Phone"
+    //          << setw(30) << "Address"
+    //          << setw(30) << "Description" << endl;
+    //     cout << string(30, '-') << endl;
+    // }
 };
 vector<admin> all_admins;
 
@@ -174,9 +303,83 @@ void admins_in_the_system()
         ad.set_Email(email);
         ad.set_Phone(phone);
         ad.set_Address(address);
-        ad.set_Name(name);
 
         all_admins.push_back(ad);
     }
     fin.close();
+}
+
+void admin_menu(admin &ad)
+{
+    cout << "\nHello " << ad.get_Name() << " | Admin view\n";
+    while (true)
+    {
+        cout << "Menu:\n";
+        cout << "1. View Profile\n";
+        cout << "2. Show All Customers\n";
+        cout << "3. Search Customer by System ID\n";
+        cout << "4. Remove Customer by System ID\n";
+        cout << "5. Update Room Data\n";
+        cout << "6. Show All Available Rooms\n";
+        cout << "7. Show All Reserved Rooms\n";
+        cout << "8. Add Admin\n";
+        cout << "9. Logout\n";
+        cout << "Enter your choice: ";
+        int choice = safe_int(1, 9);
+        if (choice == 1)
+        {
+            ad.view_profile();
+        }
+        else if (choice == 2)
+        {
+            ad.show_all_customers();
+        }
+        else if (choice == 3)
+        {
+            ad.search_customer();
+        }
+        else if (choice == 4)
+        {
+            cout << "Enter Customer System ID to remove: ";
+            string id_to_remove;
+            getline(cin, id_to_remove);
+            ad.remove_customer(id_to_remove);
+        }
+        else if (choice == 5)
+        {
+            // ad.update_room_data();
+            cout << "Feature under development.\n\n";
+        }
+        else if (choice == 6)
+        {
+            ad.all_available_rooms();
+        }
+        else if (choice == 7)
+        {
+            ad.all_reserved_rooms();
+        }
+        else if (choice == 8)
+        {
+            admin new_admin;
+            new_admin.read();
+            all_admins.push_back(new_admin);
+            ofstream fout("admins_in_the_system.csv", ios::app);
+            fout << new_admin.get_System_ID() << ","
+                 << new_admin.get_Name() << ","
+                 << new_admin.get_Password() << ","
+                 << new_admin.get_Gender() << ","
+                 << new_admin.get_Age() << ","
+                 << new_admin.get_National_ID() << ","
+                 << new_admin.get_Email() << ","
+                 << new_admin.get_Phone() << ","
+                 << new_admin.get_Address() << "\n";
+
+            cout << "New admin added successfully.\n\n";
+        }
+        else if (choice == 9)
+        {
+            cout << "Logging out...\n\n";
+            break;
+        }
+    }
 }
