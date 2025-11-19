@@ -1,17 +1,20 @@
+#ifndef DATE_FILE
+#define DATE_FILE
+
 #pragma once
 #include <bits/stdc++.h>
 using namespace std;
 #define nl '\n'
 
-struct date
+struct Date
 {
     int day;
     int month;
     int year;
 
-    date() : day(1), month(1), year(2000) {};
+    Date() : day(1), month(1), year(2000) {};
 
-    bool valid_date(date &other) // to check if date is valid date or not  (with date)
+    bool validDate(Date &other) // to check if date is valid date or not  (with date)
     {
         int m = other.month, d = other.day, y = other.year;
         if (y < 0 || m < 1 || m > 12 || d < 1)
@@ -21,7 +24,7 @@ struct date
         return d <= last_day[m];
     }
 
-    bool valid_date(int d, int m, int y) // to check if date is valid date or not
+    bool validDate(int d, int m, int y) // to check if date is valid date or not
     {
         if (y < 0 || m < 1 || m > 12 || d < 1)
             return false;
@@ -30,14 +33,14 @@ struct date
         return d <= last_day[m];
     }
 
-    void set_date(const date &other)
+    void setDate(const Date &other)
     {
-        set_date(other.day, other.month, other.year);
+        setDate(other.day, other.month, other.year);
     }
 
-    void set_date(int d, int m, int y)
+    void setDate(int d, int m, int y)
     {
-        while (!valid_date(d, m, y))
+        while (!validDate(d, m, y))
         {
             cout << "Please enter a valid date: ";
             cin >> d >> m >> y;
@@ -48,7 +51,7 @@ struct date
         this->year = y;
     }
 
-    bool operator<(const date &T) const
+    bool operator<(const Date &T) const
     {
         if (year != T.year)
             return year < T.year;
@@ -57,7 +60,7 @@ struct date
         return day < T.day;
     }
 
-    date &operator=(const date &other)
+    Date &operator=(const Date &other)
     {
         if (this == &other)
             return *this;
@@ -76,6 +79,13 @@ struct date
              << year << endl;
     }
 
+    friend ostream& operator<< ( ostream& out , Date obj )
+    {
+        out << obj.toString() ;
+        return out ;
+    }
+
+
     string toString() const
     {
         char buf[11];
@@ -83,3 +93,6 @@ struct date
         return std::string(buf);
     }
 };
+
+
+#endif
