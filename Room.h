@@ -1,3 +1,6 @@
+#ifndef ROOM_FILE
+#define ROOM_FILE
+
 #include <bits/stdc++.h>
 #include "ID.h"
 #include "Date.h"
@@ -31,12 +34,8 @@ private:
       date checkOut;
 
 public:
-      Room()
+      Room() : ID ( Object::Room )
       {
-            Type = Object::Room;
-            Id = NextId();
-            Table[Type][Id] = this;
-
             roomNumber = 0;
             roomFloor = 0;
             roomPrice = 0.0;
@@ -48,12 +47,8 @@ public:
       };
 
       Room(int roomNumber, int roomFloor, double roomPrice, RoomType roomType,
-           RoomStatus roomStatus = RoomStatus::Available)
+           RoomStatus roomStatus = RoomStatus::Available)  : ID ( Object::Room )
       {
-            Type = Object::Room;
-            Id = NextId();
-            Table[Type][Id] = this;
-
             this->roomNumber = roomNumber;
             this->roomFloor = roomFloor;
             this->roomPrice = roomPrice;
@@ -176,3 +171,6 @@ public:
             cout << setw(12) << checkIn.toString() << setw(12) << checkOut.toString() << '\n';
       }
 };
+
+
+#endif
