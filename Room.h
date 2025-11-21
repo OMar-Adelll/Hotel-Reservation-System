@@ -86,29 +86,26 @@ public:
             roomStatus = RoomStatus::Available;
       }
 
-      void displayRoomData() const
+      friend ostream& operator<< ( ostream& out , Room1 obj )
       {
-            cout << left
-                 << setw(10) << "RoomNo"
-                 << setw(8) << "Floor"
-                 << setw(10) << "Price"
-                 << setw(12) << "Type"
-                 << setw(15) << "Status"
-                 << setw(12) << "CheckIn"
-                 << setw(12) << "CheckOut" << '\n';
+            out << left
+                 << setw(10) << "RoomNo : " << obj.roomNumber
+                 << setw(8) << "Floor : " << obj.roomFloor
+                 << setw(10) << "Price : " << obj.roomPrice
+                 << setw(12) << "Type : " << obj.roomType
+                 << setw(15) << "Status : " << obj.roomStatus
+                 << setw(12) << "CheckIn : " << obj.checkIn
+                 << setw(12) << "CheckOut : " << obj.checkOut << '\n';
 
-            cout << string(79, '-') << '\n';
+            out << string(79, '-') << '\n';
 
-            cout << left
-                 << setw(10) << roomNumber
-                 << setw(8) << roomFloor
-                 << setw(10) << roomPrice;
+            out << left
+                 << setw(10) << obj.roomNumber
+                 << setw(8) << obj.roomFloor
+                 << setw(10) << obj.roomPrice;
 
-            print_roomType ( roomType ) ;
 
-            print_roomStatus ( roomStatus ) ;
-
-            cout << setw(12) << checkIn.toString() << setw(12) << checkOut.toString() << '\n';
+            out << setw(12) << obj.checkIn.toString() << setw(12) << obj.checkOut.toString() << '\n';
       }
 };
 

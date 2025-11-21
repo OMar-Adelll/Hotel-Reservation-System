@@ -3,14 +3,11 @@
 
 
 #include <bits/stdc++.h>
+#include "Utils.h"
+
 using namespace std;
-enum Object
-{
-      Room,
-      Hotel,
-      Admin,
-      Customer
-};
+
+
 class ID
 {
 private:
@@ -47,6 +44,12 @@ public:
       int getID()
       {
             return Id;
+      }
+
+      friend ostream &operator<<(ostream &out, const ID &obj)
+      {
+            out << "ID: " << obj.Id << ", Type: " << obj.Type;
+            return out;
       }
 
 };

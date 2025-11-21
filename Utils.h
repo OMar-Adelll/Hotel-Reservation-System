@@ -93,6 +93,8 @@ public :
 const regex Utils::passwordTemplate ( "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*\\W).{8,}$" ) ;
 
 
+// ------------------------------------- RoomStatus -------------------------------------
+
 enum RoomStatus
 {
       Available,
@@ -100,22 +102,24 @@ enum RoomStatus
       UnderMaintenance
 };
 
-void print_roomStatus ( RoomStatus roomStatus )
+ostream& operator<<(ostream& out, RoomStatus status)
 {
-      switch (roomStatus)
-      {
-      case RoomStatus::Available:
-            cout << setw(15) << "Available";
-            break;
-      case RoomStatus::Booked:
-            cout << setw(15) << "Booked";
-            break;
-      case RoomStatus::UnderMaintenance:
-            cout << setw(15) << "Maintenance";
-            break;
-      }
+    switch (status)
+    {
+    case RoomStatus::Available:
+        out << setw(15) << "Available";
+        break;
+    case RoomStatus::Booked:
+        out << setw(15) << "Booked";
+        break;
+    case RoomStatus::UnderMaintenance:
+        out << setw(15) << "Maintenance";
+        break;
+    }
+    return out;
 }
 
+// ------------------------------------- RoomType -------------------------------------
 
 enum RoomType
 {
@@ -127,29 +131,96 @@ enum RoomType
       Family
 };
 
-void print_roomType ( RoomType roomType )
+ostream& operator<<(ostream& out, RoomType type)
 {
-      switch (roomType)
-      {
-      case RoomType::Single:
-            cout << setw(12) << "Single";
-            break;
-      case RoomType::Double:
-            cout << setw(12) << "Double";
-            break;
-      case RoomType::Twin:
-            cout << setw(12) << "Twin";
-            break;
-      case RoomType::Deluxe:
-            cout << setw(12) << "Deluxe";
-            break;
-      case RoomType::Suite:
-            cout << setw(12) << "Suite";
-            break;
-      case RoomType::Family:
-            cout << setw(12) << "Family";
-            break;
-      }
+    switch (type)
+    {
+    case RoomType::Single:
+        out << setw(12) << "Single";
+        break;
+    case RoomType::Double:
+        out << setw(12) << "Double";
+        break;
+    case RoomType::Twin:
+        out << setw(12) << "Twin";
+        break;
+    case RoomType::Deluxe:
+        out << setw(12) << "Deluxe";
+        break;
+    case RoomType::Suite:
+        out << setw(12) << "Suite";
+        break;
+    case RoomType::Family:
+        out << setw(12) << "Family";
+        break;
+    }
+    return out;
+}
+
+// ------------------------------------- Object -------------------------------------
+
+enum Object
+{
+    Room,
+    Hotel,
+    Admin,
+    Customer
+};
+
+ostream &operator<<(ostream &out, Object obj)
+{
+    switch (obj)
+    {
+    case Room:
+        out << "Room";
+        break;
+    case Hotel:
+        out << "Hotel";
+        break;
+    case Admin:
+        out << "Admin";
+        break;
+    case Customer:
+        out << "Customer";
+        break;
+    default:
+        out << "Unknown";
+        break;
+    }
+    return out;
+}
+
+// ------------------------------------- PowerLevel -------------------------------------
+
+enum class PowerLevel
+{
+    Low,
+    Medium,
+    High,
+    Super
+};
+
+ostream &operator<<(ostream &out, PowerLevel level)
+{
+    switch (level)
+    {
+    case PowerLevel::Low:
+        out << "Low";
+        break;
+    case PowerLevel::Medium:
+        out << "Medium";
+        break;
+    case PowerLevel::High:
+        out << "High";
+        break;
+    case PowerLevel::Super:
+        out << "Super";
+        break;
+    default:
+        out << "Unknown";
+        break;
+    }
+    return out;
 }
 
 #endif

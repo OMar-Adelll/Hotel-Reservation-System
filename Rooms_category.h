@@ -15,7 +15,7 @@ private:
 
 
 public:
-    Rooms_category( ID * owner  ) : owner ( owner ) {}
+    Rooms_category( ID * owner ) : owner ( owner ) {}
 
     bool hasRoom(int roomNumber) const
     {
@@ -52,25 +52,26 @@ public:
         return rooms;
     }
 
-    void printAllRooms() const
+    friend ostream& operator<<(ostream& out, const Rooms_category& obj) 
     {
-        if (rooms.empty())
+        if (obj.rooms.empty())
         {
             cout << "No rooms in this category." << endl;
             return;
         }
 
         cout << "Rooms in category:" << endl;
-        for (const auto &room : rooms)
+        for (const auto &room : obj.rooms)
         {
             cout << " Room Number: " << room.first << ", Type: ";
             if (room.second)
             {
-                room.second->displayRoomData() ;
+                out << room.second ;
             }
 
             cout << endl;
         }
+        return out ;
     }
 
     int count() const

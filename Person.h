@@ -39,10 +39,9 @@ class Person : public ID
 
     friend ostream& operator<< ( ostream& out , Person obj )
     {
-        // uncomment when finish
-        // out << obj.name << "\n" ;
+        out << obj.name << "\n" ;
+        out << static_cast<const ID&>(obj) << "\n" ;
         out << "National ID : " << obj.SSN << "\n" ;
-        out << "System id : " << obj.Id << "\n" ;
         out << "Password : " << obj.Password << "\n" ;
         out << obj.age << "\n" ;
 
