@@ -8,7 +8,7 @@ private:
     map<int, string> rooms;
 
 public:
-    Rooms_category(){}
+    Rooms_category() {}
 
     bool hasRoom(int roomNumber) const
     {
@@ -55,6 +55,5 @@ public:
     {
         return rooms.size();
     }
-
 };
 #endif

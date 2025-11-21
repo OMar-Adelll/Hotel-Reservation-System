@@ -34,7 +34,7 @@ private:
       Date checkOut;
 
 public:
-      Room() : ID ( Object::Room )
+      Room() : ID(Object::Room)
       {
             roomNumber = 0;
             roomFloor = 0;
@@ -47,7 +47,7 @@ public:
       };
 
       Room(int roomNumber, int roomFloor, double roomPrice, RoomType roomType,
-           RoomStatus roomStatus = RoomStatus::Available)  : ID ( Object::Room )
+           RoomStatus roomStatus = RoomStatus::Available) : ID(Object::Room)
       {
             this->roomNumber = roomNumber;
             this->roomFloor = roomFloor;
@@ -156,6 +156,5 @@ public:
             cout << setw(12) << checkIn.toString() << setw(12) << checkOut.toString() << '\n';
       }
 };
-
 
 #endif
