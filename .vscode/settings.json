@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "bitset": "cpp",
+        "algorithm": "cpp",
+        "flat_map": "cpp",
+        "flat_set": "cpp",
+        "format": "cpp",
+        "chrono": "cpp",
+        "iostream": "cpp",
+        "iosfwd": "cpp"
+    }
+}
