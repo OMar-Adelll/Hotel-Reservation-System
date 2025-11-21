@@ -4,25 +4,11 @@
 #include <bits/stdc++.h>
 #include "ID.h"
 #include "Date.h"
+#include "Utils.h"
 
-enum class RoomStatus
-{
-      Available,
-      Booked,
-      UnderMaintenance
-};
 
-enum class RoomType
-{
-      Single = 1,
-      Double,
-      Twin,
-      Deluxe,
-      Suite,
-      Family
-};
 
-class Room : public ID
+class Room1 : public ID
 {
 private:
       int roomNumber;
@@ -34,7 +20,7 @@ private:
       Date checkOut;
 
 public:
-      Room() : ID(Object::Room)
+      Room1() : ID(Object::Room)
       {
             roomNumber = 0;
             roomFloor = 0;
@@ -46,7 +32,7 @@ public:
             checkOut = Date();
       };
 
-      Room(int roomNumber, int roomFloor, double roomPrice, RoomType roomType,
+      Room1(int roomNumber, int roomFloor, double roomPrice, RoomType roomType,
            RoomStatus roomStatus = RoomStatus::Available) : ID(Object::Room)
       {
             this->roomNumber = roomNumber;
@@ -57,7 +43,7 @@ public:
 
             checkIn = Date();
             checkOut = Date();
-      }
+      };
 
       // -- Main functions -- //
 
@@ -100,60 +86,26 @@ public:
             roomStatus = RoomStatus::Available;
       }
 
-      void displayRoomData() const
+      friend ostream& operator<< ( ostream& out , Room1 obj )
       {
-            cout << left
-                 << setw(10) << "RoomNo"
-                 << setw(8) << "Floor"
-                 << setw(10) << "Price"
-                 << setw(12) << "Type"
-                 << setw(15) << "Status"
-                 << setw(12) << "CheckIn"
-                 << setw(12) << "CheckOut" << '\n';
+            out << left
+                 << setw(10) << "RoomNo : " << obj.roomNumber
+                 << setw(8) << "Floor : " << obj.roomFloor
+                 << setw(10) << "Price : " << obj.roomPrice
+                 << setw(12) << "Type : " << obj.roomType
+                 << setw(15) << "Status : " << obj.roomStatus
+                 << setw(12) << "CheckIn : " << obj.checkIn
+                 << setw(12) << "CheckOut : " << obj.checkOut << '\n';
 
-            cout << string(79, '-') << '\n';
+            out << string(79, '-') << '\n';
 
-            cout << left
-                 << setw(10) << roomNumber
-                 << setw(8) << roomFloor
-                 << setw(10) << roomPrice;
+            out << left
+                 << setw(10) << obj.roomNumber
+                 << setw(8) << obj.roomFloor
+                 << setw(10) << obj.roomPrice;
 
-            switch (roomType)
-            {
-            case RoomType::Single:
-                  cout << setw(12) << "Single";
-                  break;
-            case RoomType::Double:
-                  cout << setw(12) << "Double";
-                  break;
-            case RoomType::Twin:
-                  cout << setw(12) << "Twin";
-                  break;
-            case RoomType::Deluxe:
-                  cout << setw(12) << "Deluxe";
-                  break;
-            case RoomType::Suite:
-                  cout << setw(12) << "Suite";
-                  break;
-            case RoomType::Family:
-                  cout << setw(12) << "Family";
-                  break;
-            }
 
-            switch (roomStatus)
-            {
-            case RoomStatus::Available:
-                  cout << setw(15) << "Available";
-                  break;
-            case RoomStatus::Booked:
-                  cout << setw(15) << "Booked";
-                  break;
-            case RoomStatus::UnderMaintenance:
-                  cout << setw(15) << "Maintenance";
-                  break;
-            }
-
-            cout << setw(12) << checkIn.toString() << setw(12) << checkOut.toString() << '\n';
+            out << setw(12) << obj.checkIn.toString() << setw(12) << obj.checkOut.toString() << '\n';
       }
 };
 
