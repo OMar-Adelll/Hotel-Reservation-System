@@ -1,3 +1,7 @@
+#ifndef ID_FILE
+#define ID_FILE
+
+
 #include <bits/stdc++.h>
 using namespace std;
 enum Object
@@ -9,53 +13,48 @@ enum Object
 };
 class ID
 {
-protected:
-      static int inline count = 1000;
+private:
+
+      static int count;
       static map<int, ID *> Table[4];
-      int Id;
-      Object Type;
+
+protected:
+
+      const int Id;
+      const Object Type;
 
 public:
-      static ID *ValidID(int Id, Object Type)
+
+      ID ( Object type ) : Id ( count ++ ) , Type ( type )
       {
-            map<int, ID *>::iterator it = Table[Type].find(Id);
+            Table[this->Type][ Id ] = this ;
+      }
+
+      static ID *ValidID( int id , Object Type )
+      {
+            map<int, ID *>::iterator it = Table[Type].find(id);
             if (it != Table[Type].end())
                   return it->second;
             else
                   return nullptr;
       }
-      Object GetType()
+
+      Object getType()
       {
             return Type;
       }
-      int MyID()
+
+      int getID()
       {
             return Id;
       }
-      static int NextId()
-      {
-            int id = count++;
-            return id;
-      }
 
-      // Two ways to read the id; feel comfortable using either one.
-      static int ReadId()
-      {
-            while (true)
-            {
-                  cout << "Enter the ID: ";
-                  int i;
-                  cin >> i;
-                  if (cin.fail())
-                  {
-                        cin.clear();
-                        cin.ignore(INT_MAX, '\n');
-                        cout << "Please Enter a valid integer!" << endl;
-                        continue;
-                  }
-                  return i;
-            }
-      }
 };
 
+int ID::count = 1000;
 map<int, ID *> ID::Table[4];
+
+
+
+
+#endif

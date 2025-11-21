@@ -1,3 +1,6 @@
+#ifndef ROOM_FILE
+#define ROOM_FILE
+
 #include <bits/stdc++.h>
 #include "ID.h"
 #include "Date.h"
@@ -27,41 +30,33 @@ private:
       double roomPrice;
       RoomStatus roomStatus;
       RoomType roomType;
-      date checkIn;
-      date checkOut;
+      Date checkIn;
+      Date checkOut;
 
 public:
-      Room()
+      Room() : ID(Object::Room)
       {
-            Type = Object::Room;
-            Id = NextId();
-            Table[Type][Id] = this;
-
             roomNumber = 0;
             roomFloor = 0;
             roomPrice = 0.0;
             roomStatus = RoomStatus::Available;
             roomType = RoomType::Single;
 
-            checkIn = date();
-            checkOut = date();
+            checkIn = Date();
+            checkOut = Date();
       };
 
       Room(int roomNumber, int roomFloor, double roomPrice, RoomType roomType,
-           RoomStatus roomStatus = RoomStatus::Available)
+           RoomStatus roomStatus = RoomStatus::Available) : ID(Object::Room)
       {
-            Type = Object::Room;
-            Id = NextId();
-            Table[Type][Id] = this;
-
             this->roomNumber = roomNumber;
             this->roomFloor = roomFloor;
             this->roomPrice = roomPrice;
             this->roomType = roomType;
             this->roomStatus = roomStatus;
 
-            checkIn = date();
-            checkOut = date();
+            checkIn = Date();
+            checkOut = Date();
       }
 
       // -- Main functions -- //
@@ -71,33 +66,18 @@ public:
       void setRoomPrice(double p) { roomPrice = p; }
       void setRoomStatus(RoomStatus s) { roomStatus = s; }
       void setRoomType(RoomType t) { roomType = t; }
-
-      void setCheckIn(int d, int m, int y)
-      {
-            checkIn.set_date(d, m, y);
-      }
-
-      void setCheckOut(int d, int m, int y)
-      {
-            checkOut.set_date(d, m, y);
-      }
-      void setCheckIn(const date &t)
-      {
-            checkIn = t;
-      }
-
-      void setCheckOut(const date &t)
-      {
-            checkOut = t;
-      }
+      void setCheckIn(int d, int m, int y) { checkIn.setDate(d, m, y); }
+      void setCheckOut(int d, int m, int y) { checkOut.setDate(d, m, y); }
+      void setCheckIn(const Date &t) { checkIn = t; }
+      void setCheckOut(const Date &t) { checkOut = t; }
 
       int getRoomNumber() const { return roomNumber; }
       int getRoomFloor() const { return roomFloor; }
       double getRoomPrice() const { return roomPrice; }
       RoomStatus getRoomStatus() const { return roomStatus; }
       RoomType getRoomType() const { return roomType; }
-      date getCheckIn() const { return checkIn; }
-      date getCheckOut() const { return checkOut; }
+      Date getCheckIn() const { return checkIn; }
+      Date getCheckOut() const { return checkOut; }
 
       // -- Additional functions -- //
 
@@ -106,7 +86,7 @@ public:
             return roomStatus == RoomStatus::Available;
       }
 
-      void bookRoom(const date &in, const date &out)
+      void bookRoom(const Date &in, const Date &out)
       {
             checkIn = in;
             checkOut = out;
@@ -115,8 +95,8 @@ public:
 
       void freeRoom()
       {
-            checkIn = date();
-            checkOut = date();
+            checkIn = Date();
+            checkOut = Date();
             roomStatus = RoomStatus::Available;
       }
 
@@ -176,3 +156,5 @@ public:
             cout << setw(12) << checkIn.toString() << setw(12) << checkOut.toString() << '\n';
       }
 };
+
+#endif
