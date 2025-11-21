@@ -93,4 +93,63 @@ public :
 const regex Utils::passwordTemplate ( "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*\\W).{8,}$" ) ;
 
 
+enum RoomStatus
+{
+      Available,
+      Booked,
+      UnderMaintenance
+};
+
+void print_roomStatus ( RoomStatus roomStatus )
+{
+      switch (roomStatus)
+      {
+      case RoomStatus::Available:
+            cout << setw(15) << "Available";
+            break;
+      case RoomStatus::Booked:
+            cout << setw(15) << "Booked";
+            break;
+      case RoomStatus::UnderMaintenance:
+            cout << setw(15) << "Maintenance";
+            break;
+      }
+}
+
+
+enum RoomType
+{
+      Single = 1,
+      Double,
+      Twin,
+      Deluxe,
+      Suite,
+      Family
+};
+
+void print_roomType ( RoomType roomType )
+{
+      switch (roomType)
+      {
+      case RoomType::Single:
+            cout << setw(12) << "Single";
+            break;
+      case RoomType::Double:
+            cout << setw(12) << "Double";
+            break;
+      case RoomType::Twin:
+            cout << setw(12) << "Twin";
+            break;
+      case RoomType::Deluxe:
+            cout << setw(12) << "Deluxe";
+            break;
+      case RoomType::Suite:
+            cout << setw(12) << "Suite";
+            break;
+      case RoomType::Family:
+            cout << setw(12) << "Family";
+            break;
+      }
+}
+
 #endif

@@ -1,25 +1,36 @@
 #ifndef ROOMS_CATEGORY_H
 #define ROOMS_CATEGORY_H
+
+#include "Room.h"
 #include <bits/stdc++.h>
+
+
+
 using namespace std;
 class Rooms_category
 {
 private:
-    map<int, string> rooms;
+    map<int, Room1 *> rooms;
+    ID * owner ;
+
 
 public:
-    Rooms_category() {}
+    Rooms_category( ID * owner  ) : owner ( owner ) {}
 
     bool hasRoom(int roomNumber) const
     {
         return rooms.find(roomNumber) != rooms.end();
     }
 
-    void addRoom(int roomNumber, const string &type, bool status = true)
+    void addRoom(int roomNumber, Room1 *roomPtr, bool status = true)
     {
         if (status)
         {
-            rooms[roomNumber] = type;
+            auto it = rooms.find(roomNumber);
+            if ( owner->getType() == Object::Hotel && it != rooms.end())
+                delete it->second;
+
+            rooms[roomNumber] = roomPtr;
         }
     }
 
@@ -27,11 +38,16 @@ public:
     {
         if (status)
         {
-            rooms.erase(roomNumber);
+            auto it = rooms.find(roomNumber);
+            if ( owner->getType() == Object::Hotel && it != rooms.end())
+            {
+                delete it->second;
+                rooms.erase(it);
+            }
         }
     }
 
-    map<int, string> getRooms() const
+    map<int, Room1 *> getRooms() const
     {
         return rooms;
     }
@@ -47,13 +63,29 @@ public:
         cout << "Rooms in category:" << endl;
         for (const auto &room : rooms)
         {
-            cout << " Room Number: " << room.first << ", Type: " << room.second << endl;
+            cout << " Room Number: " << room.first << ", Type: ";
+            if (room.second)
+            {
+                room.second->displayRoomData() ;
+            }
+
+            cout << endl;
         }
     }
 
     int count() const
     {
         return rooms.size();
+    }
+    
+    ~Rooms_category()
+    {
+        for (auto &p : rooms)
+        {
+            if ( owner->getType() == Object::Hotel )
+                delete p.second;
+        }
+        rooms.clear();
     }
 };
 #endif

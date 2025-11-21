@@ -4,25 +4,11 @@
 #include <bits/stdc++.h>
 #include "ID.h"
 #include "Date.h"
+#include "Utils.h"
 
-enum class RoomStatus
-{
-      Available,
-      Booked,
-      UnderMaintenance
-};
 
-enum class RoomType
-{
-      Single = 1,
-      Double,
-      Twin,
-      Deluxe,
-      Suite,
-      Family
-};
 
-class Room : public ID
+class Room1 : public ID
 {
 private:
       int roomNumber;
@@ -34,7 +20,7 @@ private:
       Date checkOut;
 
 public:
-      Room() : ID(Object::Room)
+      Room1() : ID(Object::Room)
       {
             roomNumber = 0;
             roomFloor = 0;
@@ -46,7 +32,7 @@ public:
             checkOut = Date();
       };
 
-      Room(int roomNumber, int roomFloor, double roomPrice, RoomType roomType,
+      Room1(int roomNumber, int roomFloor, double roomPrice, RoomType roomType,
            RoomStatus roomStatus = RoomStatus::Available) : ID(Object::Room)
       {
             this->roomNumber = roomNumber;
@@ -57,7 +43,7 @@ public:
 
             checkIn = Date();
             checkOut = Date();
-      }
+      };
 
       // -- Main functions -- //
 
@@ -118,40 +104,9 @@ public:
                  << setw(8) << roomFloor
                  << setw(10) << roomPrice;
 
-            switch (roomType)
-            {
-            case RoomType::Single:
-                  cout << setw(12) << "Single";
-                  break;
-            case RoomType::Double:
-                  cout << setw(12) << "Double";
-                  break;
-            case RoomType::Twin:
-                  cout << setw(12) << "Twin";
-                  break;
-            case RoomType::Deluxe:
-                  cout << setw(12) << "Deluxe";
-                  break;
-            case RoomType::Suite:
-                  cout << setw(12) << "Suite";
-                  break;
-            case RoomType::Family:
-                  cout << setw(12) << "Family";
-                  break;
-            }
+            print_roomType ( roomType ) ;
 
-            switch (roomStatus)
-            {
-            case RoomStatus::Available:
-                  cout << setw(15) << "Available";
-                  break;
-            case RoomStatus::Booked:
-                  cout << setw(15) << "Booked";
-                  break;
-            case RoomStatus::UnderMaintenance:
-                  cout << setw(15) << "Maintenance";
-                  break;
-            }
+            print_roomStatus ( roomStatus ) ;
 
             cout << setw(12) << checkIn.toString() << setw(12) << checkOut.toString() << '\n';
       }
