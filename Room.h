@@ -25,7 +25,7 @@ public:
             roomNumber = 0;
             roomFloor = 0;
             roomPrice = 0.0;
-            roomStatus = RoomStatus::Available;
+            roomStatus = RoomStatus::UnderMaintenance;
             roomType = RoomType::Single;
 
             checkIn = Date();
@@ -44,6 +44,18 @@ public:
             checkIn = Date();
             checkOut = Date();
       };
+
+      Room1(int roomNumber , RoomType t) :ID(Object::Room)
+      {
+            this->roomNumber = roomNumber;
+            this->roomType = t;
+            this->roomFloor = 0;
+            this->roomPrice = 0.0;
+            RoomStatus::UnderMaintenance;
+            checkIn = Date();
+            checkOut = Date();
+      }
+
 
       // -- Main functions -- //
 
