@@ -17,9 +17,9 @@ public:
         return rooms.find( roomId ) != rooms.end();
     }
 
-    void addRoom( int roomId , Room1 *roomPtr )
+    void addRoom( int roomId )
     {
-        rooms[roomId ] = roomPtr;
+        rooms[ roomId ] = static_cast<Room1*>(ID::ValidID( roomId , Object::Room )) ;
     }
 
     void addRoom( Room1 *roomPtr )
@@ -27,7 +27,7 @@ public:
         rooms[ roomPtr->getID() ] = roomPtr ;
     }
 
-    void deleteRoom( int roomId , Room1 *roomPtr )
+    void deleteRoom( int roomId )
     {
         rooms.erase ( roomId ) ;
     }
@@ -36,7 +36,6 @@ public:
     {
         rooms.erase (  roomPtr->getID() ) ;
     }
-
 
     friend ostream &operator<<(ostream &out, const Rooms_category &obj)
     {
