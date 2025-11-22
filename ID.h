@@ -27,7 +27,7 @@ public:
             Table[this->Type][ Id ] = this ;
       }
 
-      static ID *ValidID( int id , Object Type )
+      static ID * ValidID ( int id , Object Type )
       {
             map<int, ID *>::iterator it = Table[Type].find(id);
             if (it != Table[Type].end())
