@@ -9,45 +9,34 @@ class Rooms_category
 {
 private:
     map<int, Room1 *> rooms;
-    ID *owner;
 
 public:
-    Rooms_category(ID *owner) : owner(owner) {}
 
-    bool hasRoom(int roomNumber) const
+    bool hasRoom(int roomId ) const
     {
-        return rooms.find(roomNumber) != rooms.end();
+        return rooms.find( roomId ) != rooms.end();
     }
 
-    void addRoom(int roomNumber, Room1 *roomPtr, bool status = true)
+    void addRoom( int roomId , Room1 *roomPtr )
     {
-        if (status)
-        {
-            auto it = rooms.find(roomNumber);
-            if (owner->getType() == Object::Hotel && it != rooms.end())
-                delete it->second;
-
-            rooms[roomNumber] = roomPtr;
-        }
+        rooms[roomId ] = roomPtr;
     }
 
-    void deleteRoom(int roomNumber, bool status = true)
+    void addRoom( Room1 *roomPtr )
     {
-        if (status)
-        {
-            auto it = rooms.find(roomNumber);
-            if (owner->getType() == Object::Hotel && it != rooms.end())
-            {
-                delete it->second;
-                rooms.erase(it);
-            }
-        }
+        rooms[ roomPtr->getID() ] = roomPtr ;
     }
 
-    map<int, Room1 *> getRooms() const
+    void deleteRoom( int roomId , Room1 *roomPtr )
     {
-        return rooms;
+        rooms.erase ( roomId ) ;
     }
+
+    void deleteRoom( Room1 *roomPtr )
+    {
+        rooms.erase (  roomPtr->getID() ) ;
+    }
+
 
     friend ostream &operator<<(ostream &out, const Rooms_category &obj)
     {
@@ -59,31 +48,15 @@ public:
 
         cout << "Rooms in category:" << endl;
         for (const auto &room : obj.rooms)
-        {
-            cout << " Room Number: " << room.first << ", Type: ";
-            if (room.second)
-            {
-                out << room.second;
-            }
-
-            cout << endl;
-        }
+            if ( room.second ) out << room.second ;
+        
         return out;
     }
 
     int count() const
     {
-        return rooms.size();
+        return rooms.size() ;
     }
 
-    ~Rooms_category()
-    {
-        for (auto &p : rooms)
-        {
-            if (owner->getType() == Object::Hotel)
-                delete p.second;
-        }
-        rooms.clear();
-    }
 };
 #endif
