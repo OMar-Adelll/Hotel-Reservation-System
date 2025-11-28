@@ -8,7 +8,7 @@
 
 
 
-class Room1 : public ID
+class Room : public ID
 {
 private:
       int roomNumber;
@@ -20,7 +20,7 @@ private:
       Date checkOut;
 
 public:
-      Room1() : ID(Object::Room)
+      Room() : ID(Object::Room)
       {
             roomNumber = 0;
             roomFloor = 0;
@@ -32,7 +32,7 @@ public:
             checkOut = Date();
       };
 
-      Room1(int roomNumber, int roomFloor, double roomPrice, RoomType roomType,
+      Room(int roomNumber, int roomFloor, double roomPrice, RoomType roomType,
            RoomStatus roomStatus = RoomStatus::Available) : ID(Object::Room)
       {
             this->roomNumber = roomNumber;
@@ -45,13 +45,14 @@ public:
             checkOut = Date();
       };
 
-      Room1(int roomNumber , RoomType t) :ID(Object::Room)
+      Room(int roomNumber , RoomType t) :ID(Object::Room)
       {
             this->roomNumber = roomNumber;
             this->roomType = t;
             this->roomFloor = 0;
             this->roomPrice = 0.0;
-            RoomStatus::UnderMaintenance;
+            this->roomStatus = RoomStatus::Available ;
+            // RoomStatus::UnderMaintenance;
             checkIn = Date();
             checkOut = Date();
       }
@@ -98,7 +99,7 @@ public:
             roomStatus = RoomStatus::Available;
       }
 
-      friend ostream& operator<< ( ostream& out , Room1 obj )
+      friend ostream& operator<< ( ostream& out , Room obj )
       {
             out << left
                  << setw(10) << "RoomNo : " << obj.roomNumber
@@ -107,7 +108,7 @@ public:
                  << setw(12) << "Type : " << obj.roomType
                  << setw(15) << "Status : " << obj.roomStatus
                  << setw(12) << "CheckIn : " << obj.checkIn
-                 << setw(12) << "CheckOut : " << obj.checkOut << '\n';
+                 << setw(0) << "CheckOut : " << obj.checkOut << '\n';
 
             out << string(79, '-') << '\n';
 
@@ -118,6 +119,7 @@ public:
 
 
             out << setw(12) << obj.checkIn.toString() << setw(12) << obj.checkOut.toString() << '\n';
+            return out ;
       }
 };
 

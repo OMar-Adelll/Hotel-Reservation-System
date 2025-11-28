@@ -3,7 +3,7 @@
 
 #include <bits/stdc++.h>
 #include "ID.h"
-#include "Rooms_category.h"
+#include "Room.h"
 using namespace std;
 class Hotel : public ID
 {
@@ -12,12 +12,13 @@ class Hotel : public ID
     int roomsCount;
     int customersCount;
     string description;
-    map<RoomType, map<int, Room1 *>> Rooms; // (roomtype , (Id , room1))
-    map<int, Room1 *> RoomsByNumber;        // (roomNumber , room1)
+    vector<map<int, class::Room *>> Rooms; // (roomtype , (Id , room1))
+    map<int, class::Room *> RoomsByNumber;        // (roomNumber , room1)
 
 public:
     Hotel() : ID(Object::Hotel)
     {
+        Rooms.resize( 7 ) ;
         hotelName = "";
         stars = 0;
         roomsCount = 0;
@@ -30,12 +31,12 @@ public:
 
     Hotel(const string &name, int starRating = 0)
         : ID(Object::Hotel), hotelName(name), stars(starRating), roomsCount(0), customersCount(0),
-          description("A hotel is an establishment that provides lodging, comfort, and services to travelers and guests. "
-                      "It usually offers furnished rooms, housekeeping, and additional amenities such as dining, reception, "
-                      "and recreation. Its main purpose is to ensure a safe, pleasant, and convenient stay for people away from home.")
+        description("A hotel is an establishment that provides lodging, comfort, and services to travelers and guests. "
+                    "It usually offers furnished rooms, housekeeping, and additional amenities such as dining, reception, "
+                    "and recreation. Its main purpose is to ensure a safe, pleasant, and convenient stay for people away from home.")
     {
+        Rooms.resize( 7 ) ;
     }
-
     // -- functions -- //
     string getHotelName() const { return hotelName; }
     int getStars() const { return stars; }
@@ -50,23 +51,23 @@ public:
 
     void build_Room(int roomNumber, RoomType t) // roomNumber required because it's essential thing when you intialize new room it (room number, type)
     {
-        Room1 *r = new Room1(roomNumber, t);
+        class::Room *r = new class::Room(roomNumber, t);
         const int id = r->getID();
         Rooms[t][id] = r;
         RoomsByNumber[roomNumber] = r;
         roomsCount++;
     }
 
-    void addRoom(const Room1 &other)
+    void addRoom(const class::Room &other)
     {
-        Room1 *r = new Room1(other.getRoomNumber(), other.getRoomType());
+        class::Room *r = new class::Room(other.getRoomNumber(), other.getRoomType());
         const int id = r->getID();
         Rooms[other.getRoomType()][id] = r;
         RoomsByNumber[other.getRoomNumber()] = r;
         roomsCount++;
     }
 
-    bool foundRoom(Room1 other) // search with Room
+    bool FindRoom(class::Room other) // search with Room
     {
         RoomType type = other.getRoomType();
         const int id = other.getID();
@@ -76,7 +77,7 @@ public:
         return false;
     }
 
-    bool foundRoom(int roomNumber) // search with Room number
+    bool FindRoom(int roomNumber) // search with Room number
     {
         auto it = RoomsByNumber.find(roomNumber);
         if (it != RoomsByNumber.end())
@@ -84,9 +85,9 @@ public:
         return false;
     }
 
-    void deleteRoom(Room1 other)
+    void deleteRoom(class::Room other)
     {
-        if (!foundRoom(other))
+        if (!FindRoom(other))
             return void(cout << "This Room is Not Found !" << nl);
         RoomType type = other.getRoomType();
         const int id = other.getID();
@@ -98,9 +99,9 @@ public:
 
     void deleteRoom(int roomNumber) // delete with room number
     {
-        if (!foundRoom(roomNumber))
+        if (!FindRoom(roomNumber))
             return void(cout << "This Room isn't Found !" << nl);
-        Room1 *r = RoomsByNumber[roomNumber];
+        class::Room *r = RoomsByNumber[roomNumber];
         RoomType type = r->getRoomType();
         const int id = r->getID();
         Rooms[type].erase(id);
@@ -117,28 +118,27 @@ public:
         }
 
         cout << left << setw(10) << "ID"
-             << setw(12) << "Number"
-             << setw(12) << "Type"
-             << setw(12) << "Status" << "\n";
+            << setw(12) << "Number"
+            << setw(12) << "Type"
+            << setw(17) << "Status" << "\n";
 
-        cout << string(46, '-') << "\n";
+        cout << string(51, '-') << "\n";
 
         for (auto &typeGroup : Rooms)
         {
-            for (auto &roomPair : typeGroup.second)
+            for (auto &[Id, room] : typeGroup )
             {
-                Room1 *room = roomPair.second;
 
                 cout << left
-                     << setw(10) << room->getID()
-                     << setw(12) << room->getRoomNumber()
-                     << setw(12) << room->getRoomType()
-                     << setw(12) << room->getRoomStatus()
-                     << "\n";
+                    << setw(10) << room->getID()
+                    << setw(12) << room->getRoomNumber()
+                    << setw(12) << room->getRoomType()
+                    << setw(17) << room->getRoomStatus()
+                    << "\n";
             }
         }
     }
-    Room1 *findRoomByNumber(int roomNumber)
+    class::Room *GetRoom(int roomNumber)
     {
         auto it = RoomsByNumber.find(roomNumber);
         if (it != RoomsByNumber.end())
@@ -150,12 +150,11 @@ public:
     {
         for (auto &typeGroup : Rooms)
         {
-            for (auto &roomPair : typeGroup.second)
-                delete roomPair.second;
-            typeGroup.second.clear();
+            for (auto &[Id, room] : typeGroup)
+                delete room;
+            typeGroup.clear();
         }
         Rooms.clear();
     }
 };
-
 #endif

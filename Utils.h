@@ -113,7 +113,7 @@ ostream& operator<<(ostream& out, RoomStatus status)
         out << setw(15) << "Booked";
         break;
     case RoomStatus::UnderMaintenance:
-        out << setw(15) << "Maintenance";
+        out << setw(15) << "UnderMaintenance";
         break;
     }
     return out;
