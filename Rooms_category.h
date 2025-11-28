@@ -8,7 +8,7 @@ using namespace std;
 class Rooms_category
 {
 private:
-    map<int, Room1 *> rooms;
+    map<int, class::Room *> rooms;
 
 public:
 
@@ -19,10 +19,10 @@ public:
 
     void addRoom( int roomId )
     {
-        rooms[ roomId ] = static_cast<Room1*>(ID::ValidID( roomId , Object::Room )) ;
+        rooms[ roomId ] = static_cast<class::Room*>(ID::ValidID( roomId , Object::Room )) ;
     }
 
-    void addRoom( Room1 *roomPtr )
+    void addRoom( class::Room *roomPtr )
     {
         rooms[ roomPtr->getID() ] = roomPtr ;
     }
@@ -32,7 +32,7 @@ public:
         rooms.erase ( roomId ) ;
     }
 
-    void deleteRoom( Room1 *roomPtr )
+    void deleteRoom( class::Room *roomPtr )
     {
         rooms.erase (  roomPtr->getID() ) ;
     }
